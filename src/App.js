@@ -26,23 +26,24 @@ function App() {
     setSearch(toSearch.current.value)
   }
   const handleAdd = ()=> {
-    setNewMovie([{
+    setNewMovie({
       title:myTitle.current.value,
       img: myImg.current.value,
       description:myDescription.current.value,
       rate: myRate.current.value
 
-    }]) 
-    }
+    }) 
     setMovies([...movies, ...newmovie])
+    }
+   
 
   return (
     <div className="App">
       <header className="App-header">
-      <h1>ggg</h1>
+      
         <Filters handleSearch={handleSearch} toSearch={toSearch} handleRate={handleRate}/>
         <Add myTitle={myTitle} myImg={myImg} myDescription={myDescription} myRate={myRate} handleAdd={handleAdd}/>
-        <MovieList movies={[...movies, newmovie].filter(movie =>movie.title.toLowerCase().trim().includes(search.toLowerCase().trim()) && movie.rate >= rating)}/>
+        <MovieList movies={[...movies,...newmovie].filter(movie =>movie.title.toLowerCase().trim().includes(search.toLowerCase().trim()) && movie.rate >= rating)}/>
       </header>
 
     </div>

@@ -9,7 +9,7 @@ const Filters=({toSearch,handleSearch,handleRate}) =>{
           starCount={5}
           // value={movie.rate}
           onStarClick={(value)=> handleRate(value)}
-          emptyStarColor={"white"}
+          emptyStarColor={"red"}
         />
         <input placeholder='search' type='text' ref={toSearch}/>
         <button onClick={handleSearch}>search</button>
