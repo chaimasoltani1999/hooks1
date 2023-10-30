@@ -4,7 +4,10 @@ import MovieList from './components/MovieList'
 import Add from './components/Add'
 import { useRef } from 'react'
 import Filters from './components/Filters'
-
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Container, Navbar } from 'react-bootstrap'
+import { Route, Routes } from 'react-router-dom'
+import MovieDetails from './components/MovieDetails'
 
 function App() {
 
@@ -26,29 +29,45 @@ function App() {
     setSearch(toSearch.current.value)
   }
   const handleAdd = ()=> {
-    setNewMovie({
+    setNewMovie([{
       title:myTitle.current.value,
       img: myImg.current.value,
       description:myDescription.current.value,
       rate: myRate.current.value
 
-    }) 
+    }]) 
     setMovies([...movies, ...newmovie])
+
     }
-   
 
   return (
+   
     <div className="App">
-      <header className="App-header">
+    <Navbar bg="danger" variant="dark">
+          <Container className="justify-content-start text-xl">
+            <Navbar.Brand className="sizetext" href="#home">
+              Netflix
+            </Navbar.Brand>
+          </Container>
+        </Navbar>
       
-        <Filters handleSearch={handleSearch} toSearch={toSearch} handleRate={handleRate}/>
-        <Add myTitle={myTitle} myImg={myImg} myDescription={myDescription} myRate={myRate} handleAdd={handleAdd}/>
-        <MovieList movies={[...movies,...newmovie].filter(movie =>movie.title.toLowerCase().trim().includes(search.toLowerCase().trim()) && movie.rate >= rating)}/>
-      </header>
+      
+       
 
+  <Routes>
+    <Route path="/" element={<>
+      <Filters handleSearch={handleSearch} toSearch={toSearch} handleRate={handleRate}/>
+        <Add myTitle={myTitle} myImg={myImg} myDescription={myDescription} myRate={myRate} handleAdd={handleAdd}/>
+        <MovieList movies={[...movies, ...newmovie].filter(movie =>movie.title.toLowerCase().trim().includes(search.toLowerCase().trim()) && movie.rate >= rating)}/></>}></Route>
+   
+    <Route path="/movie/:id" element={<MovieDetails movies={[...movies, ...newmovie]} />}/>
+   
+  </Routes>
     </div>
+    
   )
-  }
+}
+  
   
 
 export default App
